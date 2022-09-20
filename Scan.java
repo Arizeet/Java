@@ -5,5 +5,6 @@ public class Scan {
         System.out.println("Enter a value: ");
         int a = ob.nextInt();
         System.out.println("Value= "+a);
+        ob.close();
     }
 }
