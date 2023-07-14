@@ -12,12 +12,10 @@ public class SinglyLinkedList {
     }
 
     public void display() {
-        int count = 0;
         ListNode current = head;
         while (current != null) {
             System.out.print(current.data + " --> ");
             current = current.next;
-            count++;
         }
         System.out.println("null");
     }
@@ -41,6 +39,60 @@ public class SinglyLinkedList {
         head = newNode;
     }
     
+    public void insertE(int data) {
+        ListNode newNode = new ListNode(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        ListNode current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+
+    public void insert(int data, int pos) {
+        ListNode node = new ListNode(data);
+        if (pos == 1) {
+            node.next = head;
+            head = node;
+        } else {
+            ListNode prev = head;
+            int count = 1;
+            while (count < pos - 1) {
+                prev = prev.next;
+                count++;
+            }
+            ListNode curr = prev.next;
+            prev.next = node;
+            node.next = curr;
+        }
+    }
+
+    public ListNode deleteF() {
+        if (head == null) {
+            return null;
+        } else {
+            ListNode temp = head;
+            head = head.next;
+            temp.next = null;
+            return temp;
+        }
+    }
+
+    public ListNode deleteE() {
+        if (head == null) {
+            return null;
+        } else {
+            ListNode temp = head;
+            while (temp.next.next != null) {
+                temp = temp.next;
+            }
+            temp.next = null;
+            return temp;
+        }
+    }
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
         sll.head = new ListNode(10);
@@ -58,10 +110,33 @@ public class SinglyLinkedList {
 
         
         //insert at beginning
-        sll.insertB(7);
-        sll.display();
+        // sll.insertB(7);
+        // sll.insertB(2);
+        // sll.insertB(9);
+        // sll.display();
         
-        //length
-        System.out.println("The length of the SLL is: " + sll.length());
+        // //length
+        // System.out.println("The length of the SLL is: " + sll.length());
+
+        //insert at end
+        // sll.insertE(2);
+        // sll.insertE(4);
+        // sll.insertE(6);
+        // sll.insertE(8);
+        // sll.display();
+
+        //insert at any pos
+        // sll.insert(4, 1);
+        // sll.insert(9, 2);
+        // sll.insert(5, 3);
+        // sll.insert(7, 1);
+
+        //delete 1st
+        // System.out.println("Deleted node:"+sll.deleteF().data);
+        // sll.display();
+
+        //delete last
+        System.out.println("Deleted node: "+sll.deleteE().data);
+        sll.display();
     }
 }
