@@ -11,7 +11,7 @@ public class SinglyLinkedList {
         }
     }
 
-    public void display() {
+    public void display(ListNode head) {
         ListNode current = head;
         while (current != null) {
             System.out.print(current.data + " --> ");
@@ -82,31 +82,89 @@ public class SinglyLinkedList {
     }
 
     public ListNode deleteE() {
-        if (head == null) {
-            return null;
+        if (head == null || head.next == null) {
+            return head;
         } else {
-            ListNode temp = head;
-            while (temp.next.next != null) {
-                temp = temp.next;
+            ListNode curr = head;
+            ListNode prev = null;
+            while (curr.next != null) {
+                prev = curr;
+                curr = curr.next;
             }
-            temp.next = null;
-            return temp;
+            prev.next = null;
+            return curr;
         }
+    }
+
+    public ListNode delete(int pos) {
+        if (pos == 1) {
+            ListNode temp = head;
+            head = head.next;
+            return temp;
+        } else {
+            ListNode prev = head;
+            int count = 1;
+            while (count < pos - 1) {
+                prev = prev.next;
+                count++;
+            }
+            ListNode curr = prev.next;
+            prev.next = curr.next;
+            curr.next = null;
+            return curr;
+        }
+    }
+
+    public void search(int searchKey) {
+        if (head == null) {
+            System.out.println("No nodes in SLL");
+            return;
+        }
+        ListNode temp = head;
+        int count = 1;
+        int flag = 0;
+        System.out.print("Element " + searchKey + " found at pos: ");
+        while (temp != null) {
+            if (searchKey == temp.data) {
+                System.out.print(count + " ");
+                flag++;
+            }
+            temp = temp.next;
+            count++;
+        }
+        if (flag == 0) {
+            System.out.print("NA");
+        }
+    }
+
+    public ListNode reverse(ListNode head) {
+        ListNode curr = head;
+        ListNode prev = null;
+        ListNode next = null;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
     }
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
         sll.head = new ListNode(10);
-        ListNode second = new ListNode(1);
+        ListNode second = new ListNode(2);
         ListNode third = new ListNode(8);
-        ListNode fouth = new ListNode(11);
+        ListNode fouth = new ListNode(7);
+        ListNode fifth = new ListNode(11);
 
         //connet them
         sll.head.next = second;
         second.next = third;
         third.next = fouth;
+        fouth.next = fifth;
 
         //display
-        sll.display();
+        sll.display(sll.head);
 
         
         //insert at beginning
@@ -136,7 +194,21 @@ public class SinglyLinkedList {
         // sll.display();
 
         //delete last
-        System.out.println("Deleted node: "+sll.deleteE().data);
-        sll.display();
+        // System.out.println("Deleted node: "+sll.deleteE().data);
+        // sll.display();
+
+        //delete at any position
+        // System.out.println("Deleted node: "+sll.delete(3).data);
+        // sll.display();
+
+        //search
+        // sll.search(2);
+        
+        //reverse
+        // System.out.println("Reverse");
+        // sll.display(sll.reverse(sll.head));
+
+        //middle element
+        
     }
 }
