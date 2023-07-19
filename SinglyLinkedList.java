@@ -115,6 +115,7 @@ public class SinglyLinkedList {
         }
     }
 
+    //search
     public void search(int searchKey) {
         if (head == null) {
             System.out.println("No nodes in SLL");
@@ -137,6 +138,7 @@ public class SinglyLinkedList {
         }
     }
 
+    //reverse
     public ListNode reverse(ListNode head) {
         ListNode curr = head;
         ListNode prev = null;
@@ -149,19 +151,126 @@ public class SinglyLinkedList {
         }
         return prev;
     }
+
+    //middle element
+    public ListNode middleEle() {
+        if (head == null) {
+            return null;
+        }
+        ListNode slowptr = head;
+        ListNode fastptr = head;
+        while (fastptr != null && fastptr.next != null) {
+            slowptr = slowptr.next;
+            fastptr = fastptr.next.next;
+        }
+        return slowptr;
+    }
+
+    public ListNode nthfromEnd(int n) {
+        if (head == null) {
+            return null;
+        }
+        if (n <= 0) {
+            throw new IllegalArgumentException("Invalid value: n = " + n);
+        }
+        ListNode mainPtr = head;
+        ListNode refPtr = head;
+        int count = 0;
+        while (count < n) {
+            if (refPtr == null) {
+                throw new IllegalArgumentException(n + "is greater than no of nodes");
+            }
+            refPtr = refPtr.next;
+            count++;
+        }
+        while (refPtr != null) {
+            refPtr = refPtr.next;
+            mainPtr = mainPtr.next;
+        }
+        return mainPtr;
+    }
+    
+    public void removeDuplicate(ListNode head) {
+        if (head == null) {
+            return;
+        }
+        ListNode curr = head;
+        while (curr != null && curr.next != null) {
+            if (curr.data == curr.next.data) {
+                curr.next = curr.next.next;
+            } else {
+                curr = curr.next;
+            }
+        }
+    }
+    
+    public ListNode insertInSoredSLL(int value) {
+        ListNode newNode = new ListNode(value);
+        if (head == null) {
+            return newNode;
+        }
+        ListNode curr = head;
+        ListNode temp = null;
+        while (curr != null && curr.data < newNode.data) {
+            temp = curr;
+            curr = curr.next;
+        }
+        newNode.next = curr;
+        temp.next = newNode;
+        return head;
+    }
+
+    public void deleteKey(int key) {
+        if (head == null) {
+            return;
+        }
+        ListNode curr = head;
+        ListNode temp = null;
+        if (curr != null && curr.data == key) {
+            head = curr.next;
+            return;
+        }
+        while (curr != null && curr.data != key) {
+            temp = curr;
+            curr = curr.next;
+        }
+        if (curr == null) {
+            return;
+        }
+        temp.next = curr.next;
+    }
+    
+    public void findLoop(ListNode head) {
+        ListNode slowPtr = head;
+        ListNode fastPtr = head;
+        while (fastPtr != null && fastPtr.next != null) {
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+            if (slowPtr == fastPtr) {
+                System.out.println("Loop is present");
+                return;
+            }
+        }
+        System.out.println("Loop is not present");
+    }
+    
+    //main method
     public static void main(String[] args) {
         SinglyLinkedList sll = new SinglyLinkedList();
-        sll.head = new ListNode(10);
+        sll.head = new ListNode(1);
         ListNode second = new ListNode(2);
-        ListNode third = new ListNode(8);
-        ListNode fouth = new ListNode(7);
-        ListNode fifth = new ListNode(11);
+        ListNode third = new ListNode(3);
+        ListNode fouth = new ListNode(4);
+        ListNode fifth = new ListNode(5);
+        ListNode sixth = new ListNode(6);
 
         //connet them
         sll.head.next = second;
         second.next = third;
         third.next = fouth;
         fouth.next = fifth;
+        fifth.next = sixth;
+        // sixth.next = third;
 
         //display
         sll.display(sll.head);
@@ -209,6 +318,25 @@ public class SinglyLinkedList {
         // sll.display(sll.reverse(sll.head));
 
         //middle element
-        
+        // System.out.println("Middle ele is: "+sll.middleEle().data);
+
+        //nth from end
+        // System.out.println("From end: "+sll.nthfromEnd(0).data);
+
+        //remove duplicate
+        // System.out.println("After removing duplicate:");
+        // sll.removeDuplicate(sll.head);
+        // sll.display(sll.head);
+
+        //insert in sorted sll
+        // sll.insertInSoredSLL(4);
+        // sll.display(sll.head);
+
+        //delete key
+        // sll.deleteKey(1);
+        // sll.display(sll.head);
+
+        //find loop
+        sll.findLoop(sll.head);
     }
 }
