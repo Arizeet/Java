@@ -240,18 +240,50 @@ public class SinglyLinkedList {
         temp.next = curr.next;
     }
     
-    public void findLoop(ListNode head) {
+    public void findLoop() {
         ListNode slowPtr = head;
         ListNode fastPtr = head;
         while (fastPtr != null && fastPtr.next != null) {
             fastPtr = fastPtr.next.next;
             slowPtr = slowPtr.next;
             if (slowPtr == fastPtr) {
-                System.out.println("Loop is present");
+                removeLoop(slowPtr);
+                // System.out.println("Loop is present");
                 return;
             }
         }
-        System.out.println("Loop is not present");
+        // System.out.println("Loop is not present");
+    }
+    
+    public ListNode startNodeInALoop() {
+        ListNode slowPtr = head;
+        ListNode fastPtr = head;
+        while (fastPtr != null && fastPtr.next != null) {
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+            if (slowPtr == fastPtr) {
+                return getStartNode(slowPtr);
+            }
+        }
+        return null;
+    }
+
+    public ListNode getStartNode(ListNode slowPtr) {
+        ListNode temp = head;
+        while (slowPtr != temp) {
+            temp = temp.next;
+            slowPtr = slowPtr.next;
+        }
+        return temp;
+    }
+    
+    public void removeLoop(ListNode slowPtr) {
+        ListNode temp = head;
+        while (slowPtr.next != temp.next) {
+            temp = temp.next;
+            slowPtr = slowPtr.next;
+        }
+        slowPtr.next = null;
     }
     
     //main method
@@ -270,10 +302,10 @@ public class SinglyLinkedList {
         third.next = fouth;
         fouth.next = fifth;
         fifth.next = sixth;
-        // sixth.next = third;
+        sixth.next = third;
 
         //display
-        sll.display(sll.head);
+        // sll.display(sll.head);
 
         
         //insert at beginning
@@ -337,6 +369,11 @@ public class SinglyLinkedList {
         // sll.display(sll.head);
 
         //find loop
-        sll.findLoop(sll.head);
+        // sll.findLoop();
+        // System.out.println(sll.startNodeInALoop().data);
+
+        //remove loop
+        sll.findLoop();
+        sll.display(sll.head);
     }
 }
