@@ -11,7 +11,7 @@ public class MergeSortedList {
         }
     }
     
-    public void display() {
+    public static void display(ListNode head) {
         if (head == null) {
             return;
         }
@@ -22,25 +22,61 @@ public class MergeSortedList {
         }
         System.out.println("null");
     }
+
+    public void insertE(int data) {
+        ListNode newNode = new ListNode(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        ListNode current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+    
+    public static ListNode merge(ListNode a, ListNode b) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        while (a != null && b != null) {
+            if (a.data <= b.data) {
+                tail.next = a;
+                a = a.next;
+            } else {
+                tail.next = b;
+                b = b.next;
+            }
+            tail = tail.next;
+        }
+        if (a == null) {
+            tail.next = b;
+        }
+        else {
+            tail.next = a;
+        }
+        return dummy.next;
+    }
     public static void main(String[] args) {
         MergeSortedList a = new MergeSortedList();
         a.head = new ListNode(1);
-        ListNode a_second = new ListNode(3);
-        ListNode a_third = new ListNode(6);
-        //connect a
-        a.head.next = a_second;
-        a_second.next = a_third;
+        a.insertE(4);
+        a.insertE(6);
+        a.insertE(10);
 
         MergeSortedList b = new MergeSortedList();
         b.head = new ListNode(2);
-        ListNode b_second = new ListNode(4);
-        ListNode b_third = new ListNode(5);
-        //connect b
-        b.head.next = b_second;
-        b_second.next = b_third;
+        b.insertE(3);
+        b.insertE(7);
+        b.insertE(9);
+        b.insertE(11);
+        b.insertE(19);
 
         //display
-        a.display();
-        b.display();
+        display(a.head);
+        display(b.head);
+        System.out.println("After merging:");
+        display(merge(a.head, b.head));
+
     }
 }
