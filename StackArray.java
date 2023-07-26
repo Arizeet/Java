@@ -2,16 +2,16 @@ public class StackArray {
     private int top;
     private int[] stack;
 
-    public StackArray(int capacity) {
+    StackArray(int capacity) {
         top = -1;
         stack = new int[capacity];
     }
 
-    public StackArray() {
+    StackArray() {
         this(10);
     }
     
-    public void push(int data) {
+    void push(int data) {
         if (isFull()) {
             throw new RuntimeException("Stack is Full");
         }
@@ -19,7 +19,7 @@ public class StackArray {
         stack[top] = data;
     }
 
-    public int pop() {
+    int pop() {
         if (top == -1) {
             throw new RuntimeException("Stack is Empty");
         }
@@ -28,14 +28,14 @@ public class StackArray {
         return result;
     }
     
-    public int peek() {
+    int peek() {
         if (top == -1) {
             throw new RuntimeException("Stack is Empty");
         }
         return stack[top];
     }
 
-    public void display() {
+    void display() {
         if (top == -1) {
             throw new RuntimeException("Stack is Empty");
         }
@@ -45,11 +45,11 @@ public class StackArray {
             temp--;
         }
     }
-    public boolean isFull() {
+    boolean isFull() {
         return stack.length == top + 1;
     }
     
-    public int size() {
+    int size() {
         return top + 1;
     }
     

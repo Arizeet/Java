@@ -14,27 +14,27 @@ public class StackSLL {
         }
     }
     
-    public StackSLL(){
+    StackSLL(){
         top = null;
         length=0;
     }
 
-    public int length() {
+    int length() {
         return length;
     }
 
-    public boolean isEmpty() {
+    boolean isEmpty() {
         return length == 0;
     }
 
-    public void push(int data) {
+    void push(int data) {
         ListNode temp = new ListNode(data);
         temp.next = top;
         top = temp;
         length++;
     }
     
-    public int pop() {
+    int pop() {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
@@ -44,7 +44,7 @@ public class StackSLL {
         return result;
     }
 
-    public int peek() {
+    int peek() {
         if (isEmpty()) {
             throw new EmptyStackException();
         }

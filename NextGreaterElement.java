@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 public class NextGreaterElement {
-    public static int[] nextGreaterEle(int[] arr) {
+    static int[] nextGreaterEle(int[] arr) {
         int[] result = new int[arr.length];
         Stack<Integer> stack = new Stack<>();
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -20,7 +20,7 @@ public class NextGreaterElement {
         return result;
     }
     
-    public static void display(int[] arr) {
+    static void display(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " "); 
         }
