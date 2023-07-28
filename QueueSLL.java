@@ -6,6 +6,7 @@ public class QueueSLL {
     public QueueSLL() {
         this.front = null;
         this.rear = null;
+        
     }
     
     private class ListNode {
