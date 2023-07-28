@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class QueueSLL {
     private ListNode front;
     private ListNode rear;
@@ -38,12 +40,23 @@ public class QueueSLL {
         length++;
     }
 
-    void dequeue() {
+    int dequeue() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue is already empty");
+        }
+        int result = front.data;
         front = front.next;
+        if (front == null) {
+            rear = null;
+        }
         length--;
+        return result;
     }
 
     void display() {
+        if (isEmpty()) {
+            return;
+        }
         ListNode temp = front;
         while (temp != null) {
             System.out.print(temp.data + " --> ");
@@ -52,6 +65,20 @@ public class QueueSLL {
         System.out.println("null");
     }
 
+    int first() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue is already empty");
+        }
+        return front.data;
+    }
+
+    int last() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue is already empty");
+        }
+        return rear.data;
+    }
+    
     public static void main(String[] args) {
         QueueSLL queue = new QueueSLL();
         queue.enqueue(1);
