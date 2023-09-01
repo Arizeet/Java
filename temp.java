@@ -4,6 +4,8 @@ import java.util.*;
   public class temp {
     public static void main(String args[]) throws IOException {
       
+      
+      
       //write your code here
       Scanner sc = new Scanner(System.in);
       char ch = sc.next().charAt(0);
